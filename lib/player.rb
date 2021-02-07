@@ -8,14 +8,14 @@ class Player
   def initialize(name, deck)
     @name = name
     @deck = deck
-    @victorious
+    @loss
   end
 
   def has_lost?
     if @deck.cards == []
-      @victorious = true
+      @loss = true
     else
-      @victorious = false
+      @loss = false
     end
   end
 end
