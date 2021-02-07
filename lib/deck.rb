@@ -5,6 +5,7 @@ class Deck
 
   def initialize(cards = [])
     @cards = cards
+    # @face_cards = []
   end
 
   def rank_of_card_at(index)
@@ -12,13 +13,23 @@ class Deck
   end
 
   def high_ranking_cards
-      face_cards = []
-    cards.each do |card|
-      if card.rank > 10
-        face_cards << card
-      end
+    cards.find_all do |card|
+      card.rank > 10
     end
-    face_cards
   end
 
+  def percent_high_ranking
+    face_cards = cards.find_all do |card|
+      card.rank > 10
+    end
+    ((face_cards.length.to_f / cards.length.to_f) * 100).round(2)
+  end
+
+  def remove_card
+    cards.shift
+  end
+
+  def add_card(new_card)
+    cards << new_card
+  end
 end
