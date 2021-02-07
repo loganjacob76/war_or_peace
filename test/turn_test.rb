@@ -53,18 +53,18 @@ class TurnTest < Minitest::Test
   end
 
   def test_player1_wins_basic
-    assert_equal "Megan", @turn.winner
+    assert_equal @player1, @turn.winner
   end
 
   def test_player2_wins_basic
     @player1.deck.remove_card
     @player1.deck.remove_card
-    assert_equal "Aurora", @turn.winner
+    assert_equal @player2, @turn.winner
   end
 
   def test_player1_wins_war
     @player2.deck.remove_card
-    assert_equal "Megan", @turn.winner
+    assert_equal @player1, @turn.winner
   end
 
   def test_player2_wins_war
@@ -76,7 +76,7 @@ class TurnTest < Minitest::Test
     @player2.deck.add_card(@card3)
     @player2.deck.add_card(@card6)
 
-    assert_equal "Aurora", @turn.winner
+    assert_equal @player2, @turn.winner
   end
 
   def test_nobody_wins_MAD
@@ -97,18 +97,42 @@ class TurnTest < Minitest::Test
   end
 
   def test_player1_wins_spoils_from_basic
-    assert_equal [@card2, @card5, @card8, @card1, @card3], @turn.award_spoils
+    winner = @turn.winner
+    @turn.pile_cards
+
+    assert_equal [@card2, @card5, @card8, @card1, @card3], @turn.award_spoils(winner)
+    assert_equal [@card4, @card6, @card7], @player2.deck.cards
   end
 
-  # def test_player2_wins_spoils_from_basic
-  #
-  # end
-  #
-  # def test_player1_wins_spoils_from_war
-  #
-  # end
-  #
-  # def test_player2_wins_spoils_from_war
-  #
-  # end
+  def test_player2_wins_spoils_from_basic
+    @player1.deck.remove_card
+    @player1.deck.remove_card
+    winner = @turn.winner
+    @turn.pile_cards
+
+    assert_equal [@card4, @card6, @card7, @card5, @card3], @turn.award_spoils(winner)
+    assert_equal [@card8], @player1.deck.cards
+  end
+
+  def test_player1_wins_spoils_from_war
+    @player2.deck.remove_card
+    winner = @turn.winner
+    @turn.pile_cards
+
+    assert_equal [@card8, @card1, @card4, @card2, @card6, @card5, @card7], @turn.award_spoils(winner)
+  end
+
+  def test_player2_wins_spoils_from_war
+    @player2.deck.remove_card
+    @player2.deck.remove_card
+    @player2.deck.remove_card
+    @player2.deck.remove_card
+    @player2.deck.add_card(@card4)
+    @player2.deck.add_card(@card3)
+    @player2.deck.add_card(@card6)
+    winner = @turn.winner
+    @turn.pile_cards
+
+    assert_equal [@card1, @card4, @card2, @card3, @card5, @card6], @turn.award_spoils(winner)
+  end
 end

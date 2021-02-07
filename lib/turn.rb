@@ -30,15 +30,15 @@ class Turn
     }
     if turn_type.key(true) == :basic
       if player1.deck.rank_of_card_at(0) > player2.deck.rank_of_card_at(0)
-        player1.name
+        player1
       else
-        player2.name
+        player2
       end
     elsif turn_type.key(true) == :war
       if player1.deck.rank_of_card_at(2) > player2.deck.rank_of_card_at(2)
-        player1.name
+        player1
       else
-        player2.name
+        player2
       end
     else
       "No Winner"
@@ -74,5 +74,10 @@ class Turn
     end
   end
 
-  def award_spoils
+  def award_spoils(winner)
+    @spoils_of_war.each do |spoil|
+      winner.deck.cards << spoil
+    end
+    winner.deck.cards
+  end
 end
