@@ -75,3 +75,21 @@ deck2 = Deck.new(split_decks[1])
 
 player1 = Player.new("Megan", deck1)
 player2 = Player.new("Aurora", deck2)
+
+class Game
+  attr_reader :player1,
+              :player2
+
+  def initialize(player1, player2)
+    @player1 = player1
+    @player2 = player2
+  end
+
+  def start
+    p "Welcome to War! (or Peace) This game will be played with 52 cards. The players today are #{player1.name} and #{player2.name}. Type 'GO' to start the game!"
+    starter = gets.chomp.upcase
+    if starter == "GO"
+      
+    end
+  end
+end
