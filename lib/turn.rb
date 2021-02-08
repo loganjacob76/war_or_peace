@@ -17,7 +17,7 @@ class Turn
     turn_type = {
       :basic => player1.deck.rank_of_card_at(0) != player2.deck.rank_of_card_at(0),
       :mutually_assured_destruction => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) == player2.deck.rank_of_card_at(2),
-      :war => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0)
+      :war => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) != player2.deck.rank_of_card_at(2)
     }
     turn_type.key(true)
   end
@@ -26,7 +26,7 @@ class Turn
     turn_type = {
       :basic => player1.deck.rank_of_card_at(0) != player2.deck.rank_of_card_at(0),
       :mutually_assured_destruction => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) == player2.deck.rank_of_card_at(2),
-      :war => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0)
+      :war => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) != player2.deck.rank_of_card_at(2)
     }
     if turn_type.key(true) == :basic
       if player1.deck.rank_of_card_at(0) > player2.deck.rank_of_card_at(0)
@@ -49,7 +49,7 @@ class Turn
     turn_type = {
       :basic => player1.deck.rank_of_card_at(0) != player2.deck.rank_of_card_at(0),
       :mutually_assured_destruction => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) == player2.deck.rank_of_card_at(2),
-      :war => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0)
+      :war => player1.deck.rank_of_card_at(0) == player2.deck.rank_of_card_at(0) && player1.deck.rank_of_card_at(2) != player2.deck.rank_of_card_at(2)
     }
     if turn_type.key(true) == :basic
       @spoils_of_war << player1.deck.remove_card
